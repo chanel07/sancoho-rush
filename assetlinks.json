@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "app.vercel.sancoho_rush.twa",
+        "sha256_cert_fingerprints": ["6A:74:83:F7:0D:E8:88:E4:FD:6F:CF:54:8A:62:40:71:97:FD:62:E5:60:30:BB:89:7C:BB:DB:50:B1:B1:66:46"]
+      }
+    }]
