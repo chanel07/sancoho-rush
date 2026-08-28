@@ -649,12 +649,14 @@ function pickAbuela(){var mood;if(ajiCut>=5){mood='malo';}else if(sancDone>=2||s
 function drawAbuela(mood,tt){
  if(!abCtx){var ac=document.getElementById('abuela');if(!ac)return;abCtx=ac.getContext('2d');}
  if(ABIMG_READY&&ABIMG){
-  var g0=abCtx;g0.setTransform(2,0,0,2,0,0);g0.clearRect(0,0,150,150);
+  var g0=abCtx;g0.setTransform(2,0,0,2,0,0);g0.clearRect(0,0,200,200);
   var nod=Math.sin(tt*2.0)*1.6;
-  g0.save();g0.translate(75,75+nod);
-  var im=ABIMG;var s=136/Math.sqrt(im.width*im.height/2.0);var iw=im.width*s,ih=im.height*s;
-  g0.drawImage(im,-iw/2,-ih/2+8,iw,ih);
-  // gesto simple: baja un poco la boca/ceño si esta brava, sube si esta contenta (overlay sutil de color)
+  g0.save();g0.translate(100,100+nod);
+  var im=ABIMG;
+  var maxW=192,maxH=192;
+  var s=Math.min(maxW/im.width,maxH/im.height);
+  var iw=im.width*s,ih=im.height*s;
+  g0.drawImage(im,-iw/2,-ih/2,iw,ih);
   if(mood==='malo'){g0.globalAlpha=0.12;g0.fillStyle='#B00020';g0.beginPath();g0.ellipse(0,ih*0.12,iw*0.28,ih*0.1,0,0,6.28);g0.fill();g0.globalAlpha=1;}
   g0.restore();
   return;
