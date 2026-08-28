@@ -1,5 +1,5 @@
-var CACHE='sancocho-rush-v1';
-var ASSETS=['/','/index.html','/manifest.json','/icons/icon-192.png','/icons/icon-512.png'];
+var CACHE='sancocho-rush-v2';
+var ASSETS=['/','/index.html','/manifest.json','/icon-192.png','/icon-512.png'];
 self.addEventListener('install',function(e){
   self.skipWaiting();
   e.waitUntil(caches.open(CACHE).then(function(c){
@@ -17,6 +17,20 @@ self.addEventListener('activate',function(e){
 });
 self.addEventListener('fetch',function(e){
   if(e.request.method!=='GET'){return;}
+  // network-first para el HTML principal, asi siempre trae la version mas nueva si hay internet
+  if(e.request.mode==='navigate'||e.request.url.endsWith('/index.html')||e.request.url.endsWith('/')){
+    e.respondWith(
+      fetch(e.request).then(function(res){
+        var copy=res.clone();
+        caches.open(CACHE).then(function(c){c.put(e.request,copy);});
+        return res;
+      }).catch(function(){
+        return caches.match(e.request).then(function(hit){return hit||caches.match('/index.html');});
+      })
+    );
+    return;
+  }
+  // cache-first para el resto (iconos, manifest)
   e.respondWith(
     caches.match(e.request).then(function(hit){
       if(hit){return hit;}
@@ -26,9 +40,7 @@ self.addEventListener('fetch',function(e){
           caches.open(CACHE).then(function(c){c.put(e.request,copy);});
         }
         return res;
-      }).catch(function(){
-        return caches.match('/index.html');
-      });
+      }).catch(function(){return caches.match('/index.html');});
     })
   );
 });
