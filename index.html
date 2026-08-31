@@ -666,7 +666,7 @@ function drawPeek(dt2){
  ctx.restore();
 }
 
-function evalCombo(){if(combo>bestCombo){bestCombo=combo;}if(combo>=2){var txt,bonus,ph,big=false;if(combo>=5){txt='\u00a1SANCOCHO!';bonus=10;big=true;ph='\u00a1No joda, qu\u00e9 velocidad!';}else if(combo===4){txt='\u00a1Cu\u00e1druple!';bonus=5;ph='\u00a1Aj\u00e1, as\u00ed es!';}else if(combo===3){txt='\u00a1Triple!';bonus=3;ph='\u00a1As\u00ed es que es!';}else{txt='\u00a1Doble!';bonus=2;ph='\u00a1Eso va!';}score+=bonus;updHUD();checkLevel();slicePop(W*0.5,H*0.30,txt+' +'+bonus,big?'#B00020':'#4A1B0C',true);slicePop(W*0.5,H*0.30+40,ph,'#4A1B0C',true);comboSnd(combo);if(combo>=5){speakKey('cmb_veloz');}else{speakKey(CMBVOX[(Math.random()*CMBVOX.length)|0]);}if(combo>=3){
+function evalCombo(){if(combo>bestCombo){bestCombo=combo;}if(combo>=2){var txt,bonus,ph,big=false;if(combo>=5){txt='\u00a1SANCOCHO!';bonus=10;big=true;ph='\u00a1No joda, qu\u00e9 velocidad!';}else if(combo===4){txt='\u00a1Cu\u00e1druple!';bonus=5;ph='\u00a1Aj\u00e1, as\u00ed es!';}else if(combo===3){txt='\u00a1Triple!';bonus=3;ph='\u00a1As\u00ed es que es!';}else{txt='\u00a1Doble!';bonus=2;ph='\u00a1Eso va!';}score+=bonus;updHUD();checkLevel();slicePop(W*0.5,H*0.30,txt+' +'+bonus,big?'#B00020':'#4A1B0C',true);slicePop(W*0.5,H*0.30+40,ph,'#4A1B0C',true);comboSnd(combo);if(combo>=4){speakKey('cmb_veloz');}else{speakKey(CMBVOX[(Math.random()*CMBVOX.length)|0]);}if(combo>=3){
   abuelaPeek(PEEK_COMBO[(Math.random()*PEEK_COMBO.length)|0]);
   // escala de intensidad segun tamano del combo (mucho mas fuerte en el tope)
   var tier=(combo>=5)?3:(combo===4)?2:1;
