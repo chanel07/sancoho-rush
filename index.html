@@ -700,7 +700,7 @@ function pickGood(){
  return pick;
 }
 function spawn(forceX){var diff=curDiff();var r=Math.random();var kind,e;
- if(r<0.035){kind='power';e=['reloj','x2','escudo'][(Math.random()*3)|0];}
+ if(r<0.05){kind='power';var pr=Math.random();e=(pr<0.5)?'escudo':(pr<0.78)?'reloj':'x2';}
  else if(r<0.085){kind='gallina';e=GALLINA;}
  else if(r<0.105){kind='racimo';e='';}
  else if(r<0.135){kind='racimoverde';e='';}
@@ -1200,9 +1200,9 @@ function legacyCopy(txt){
 function over(){running=false;newRec=false;abuelaOn=false;stopAmbient();var prevBest=best;
  recordGameStats();
  refreshMisionBox();
- var misOk=checkMission();
+ var misOk=checkMission();if(misOk){vib([25,30,25,30,60]);}
  addScore(score);
- if(mode==='reto'){if(score>bestReto){bestReto=score;saveBestReto();}}if(score>best){best=score;newRec=true;saveBest();speak('\u00a1Nuevo r\u00e9cord!');}var um='';for(var ti=0;ti<THEMES.length;ti++){var tt=THEMES[ti];if(prevBest<UNLK[tt]&&best>=UNLK[tt]){um='<br>\u00a1Desbloqueaste '+TNAME[tt]+'!';speak('\u00a1Desbloqueaste '+TNAME[tt]+'!');}}if(window._refreshSel){window._refreshSel();}ov.style.display='flex';ov.style.pointerEvents='auto';ov.style.visibility='visible';startMenuBg();ovt.innerHTML=newRec?'\u00a1NUEVO R\u00c9CORD!':'\u00a1Se acab\u00f3!';var acc=(totalCuts+totalMiss)>0?Math.round(totalCuts*100/(totalCuts+totalMiss)):100;
+ if(mode==='reto'){if(score>bestReto){bestReto=score;saveBestReto();}}if(score>best){best=score;newRec=true;saveBest();vib([40,50,40,50,90]);speak('\u00a1Nuevo r\u00e9cord!');}var um='';for(var ti=0;ti<THEMES.length;ti++){var tt=THEMES[ti];if(prevBest<UNLK[tt]&&best>=UNLK[tt]){um='<br>\u00a1Desbloqueaste '+TNAME[tt]+'!';speak('\u00a1Desbloqueaste '+TNAME[tt]+'!');}}if(window._refreshSel){window._refreshSel();}ov.style.display='flex';ov.style.pointerEvents='auto';ov.style.visibility='visible';startMenuBg();ovt.innerHTML=newRec?'\u00a1NUEVO R\u00c9CORD!':'\u00a1Se acab\u00f3!';var acc=(totalCuts+totalMiss)>0?Math.round(totalCuts*100/(totalCuts+totalMiss)):100;
  var meds='';
  if(sancDone>=3){meds+='\uD83C\uDFC6 ';}
  if(bestCombo>=5){meds+='\u26A1 ';}
@@ -1397,7 +1397,7 @@ document.addEventListener('touchstart',sd,{passive:false,capture:true});document
 if(window.PointerEvent){document.addEventListener('pointerdown',sd,{passive:false,capture:true});document.addEventListener('pointermove',sm,{passive:false,capture:true});document.addEventListener('pointerup',su,{capture:true});document.addEventListener('pointercancel',su,{capture:true});}
 document.addEventListener('visibilitychange',function(){if(document.hidden&&running&&!paused){paused=true;var pb2=document.getElementById('pauseBtn'),pv2=document.getElementById('pauseOverlay');if(pb2){pb2.textContent='\u25B6';}if(pv2){pv2.style.display='flex';pv2.style.pointerEvents='auto';}try{if(window.speechSynthesis)window.speechSynthesis.cancel();}catch(e){}stopMusic();}});
 window.addEventListener('blur',function(){if(running&&!paused){paused=true;var pb3=document.getElementById('pauseBtn'),pv3=document.getElementById('pauseOverlay');if(pb3){pb3.textContent='\u25B6';}if(pv3){pv3.style.display='flex';pv3.style.pointerEvents='auto';}stopMusic();}});
-go.addEventListener('click',function(){start('normal');});
+go.addEventListener('click',function(){vib(12);start('normal');});
 function refreshMisionBox(){
  var mb=document.getElementById('misionBox');
  if(!mb||!mission){return;}
@@ -1419,7 +1419,7 @@ function refreshMisionBox(){
 }
 (function(){
  var br=document.getElementById('btnReto');
- if(br){br.addEventListener('click',function(){start('reto');});}
+ if(br){br.addEventListener('click',function(){vib(12);start('reto');});}
  loadMission();loadScores();loadBestReto();loadStreak();loadLTStats();
  refreshMisionBox();
 })();
